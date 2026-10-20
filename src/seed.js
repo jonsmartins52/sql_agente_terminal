@@ -1,8 +1,8 @@
 import { faker } from "@faker-js/faker";
 import { createWriteStream, statSync } from "node:fs";
 
-const LOG_FILE = "access.log";
-const LOG_INTERVAL = 1 * 1000;
+import { LOG_FILE, LOG_INTERVAL } from "./constants.js";
+
 const maxRecords = Number(process.argv[2] || Infinity);
 
 if (
@@ -26,13 +26,13 @@ function generateUser() {
     job_area: faker.person.jobArea(),
     company: faker.company.name(),
     job_title: faker.person.jobTitle(),
-    id: faker.string.uuid(),
   };
 }
 
 function generateLogEntry(user) {
   return {
     ...user,
+    id: faker.string.uuid(),
     timestamp: faker.date.recent().toISOString(),
   };
 }
